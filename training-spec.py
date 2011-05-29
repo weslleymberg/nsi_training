@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from should_dsl import should
-from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation
+from should_dsl import should, should_not
+from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous
 
 
 class TestBall(unittest.TestCase):
@@ -161,3 +161,29 @@ class TestGasStation(unittest.TestCase):
         self.a_gas_station.refuel()
         self.a_gas_station.current_state |should| be(100)
 
+
+class TestGeometry(unittest.TestCase):
+    pass
+
+
+class TestCarnivorous(unittest.TestCase):
+
+    def setUp(self):
+        self.a_carnivorous = Carnivorous()
+
+    def it_creates_a_carnivorous(self):
+        self.a_carnivorous |should| be_instance_of(Carnivorous)
+
+    def it_feeds_the_carnivorous(self):
+        self.a_carnivorous.eat("s")
+        self.a_carnivorous.stomach |should| contain("s")
+        self.a_carnivorous.eat(2)
+        self.a_carnivorous.stomach |should| contain(2)
+        self.a_carnivorous.stomach |should| equal_to(["s", 2])
+
+    def it_digest_the_feed(self):
+        self.a_carnivorous.eat("s")
+        self.a_carnivorous.eat(2.0)
+        self.a_carnivorous.digest()
+        self.a_carnivorous.stomach |should_not| contain("s")
+        self.a_carnivorous.stomach |should| contain(2.0)

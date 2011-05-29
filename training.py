@@ -105,3 +105,18 @@ class GasStation(object):
     def refuel(self):
         self.current_state = self.maximum_capacity
 
+
+class GeometricShape(object):
+    pass
+
+
+class Carnivorous(object):
+
+    def __init__(self):
+        self.stomach = []
+
+    def eat(self, feed):
+        self.stomach.append(feed)
+
+    def digest(self):
+        self.stomach.remove(self.stomach[0])
