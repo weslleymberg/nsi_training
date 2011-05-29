@@ -82,3 +82,26 @@ class BankAccount(object):
 
     def draw(self, value):
         self.average_credit -= value
+
+
+class GasStation(object):
+
+    def __init__(self, capacity, price_per_liter):
+        self.maximum_capacity = capacity
+        self.current_state = capacity
+        self.price_per_liter = price_per_liter
+
+    def supply(self, value):
+        if type(value) == int:
+            price = value * self.price_per_liter
+            self.current_state -= value
+            return price
+        elif type(value) == float:
+            fuel = int(value / self.price_per_liter)
+            self.current_state -= fuel
+            return fuel
+        return "Invalid Input"
+
+    def refuel(self):
+        self.current_state = self.maximum_capacity
+

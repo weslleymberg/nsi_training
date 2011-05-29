@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from should_dsl import should
-from training import Ball, Square, Rectangle, Person, TV, BankAccount
+from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation
 
 
 class TestBall(unittest.TestCase):
@@ -135,3 +135,29 @@ class TestBankAccount(unittest.TestCase):
         self.an_account.average_credit |should| be(100)
         self.an_account.draw(25)
         self.an_account.average_credit |should| be(75)
+
+
+class TestGasStation(unittest.TestCase):
+
+    def setUp(self):
+        self.a_gas_station = GasStation(100, 2.0)
+
+    def it_creates_a_gas_station(self):
+        self.a_gas_station |should| be_instance_of(GasStation)
+
+    def it_verify_the_state_of_the_fuel_pump(self):
+        self.a_gas_station.maximum_capacity |should| be(100)
+        self.a_gas_station.current_state |should| be(100)
+        self.a_gas_station.price_per_liter |should| equal_to(2.0)
+
+    def it_supply_the_vehicle(self):
+        self.a_gas_station.supply(10) |should| equal_to(20.0)
+        self.a_gas_station.current_state |should| be(90)
+        self.a_gas_station.supply(10.0) |should| equal_to(5)
+        self.a_gas_station.current_state |should| be(85)
+        self.a_gas_station.supply("hi") |should| equal_to("Invalid Input")
+
+    def it_refuel_the_pump(self):
+        self.a_gas_station.refuel()
+        self.a_gas_station.current_state |should| be(100)
+
