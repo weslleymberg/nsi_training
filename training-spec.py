@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from should_dsl import should, should_not
-from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous, ComplexNumber
+from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous, ComplexNumber, RationalNumber
 
 
 class TestBall(unittest.TestCase):
@@ -220,3 +220,42 @@ class TestComplexNumbers(unittest.TestCase):
 
     def it_divides_two_complex_numbers(self):
         self.a_complex_number / self.other_complex_number |should| equal_to(ComplexNumber(0.5, 0.0))
+
+
+class TestRationalNumber(unittest.TestCase):
+
+    def setUp(self):
+        self.a_rational_number = RationalNumber(1, 2)
+        self.other_rational_number = RationalNumber(2, 3)
+
+    def it_creates_a_rational_number(self):
+        self.a_rational_number |should| be_instance_of(RationalNumber)
+        self.other_rational_number |should| be_instance_of(RationalNumber)
+
+    def it_takes_the_numerator(self):
+        self.a_rational_number.numerator |should| be(1)
+        self.other_rational_number.numerator |should| be(2)
+
+    def it_takes_the_denominator(self):
+        self.a_rational_number.denominator |should| be(2)
+        self.other_rational_number.denominator |should| be(3)
+
+    def it_takes_the_representation_of_the_rational_number(self):
+        repr(self.a_rational_number) |should| equal_to('1/2')
+        repr(self.other_rational_number) |should| equal_to('2/3')
+
+    def it_sum_two_rational_numbers(self):
+        self.a_rational_number + self.other_rational_number |should| equal_to(RationalNumber(7, 6))
+
+    def it_subtract_two_rational_numbers(self):
+        self.a_rational_number - self. other_rational_number |should| equal_to(RationalNumber(-1, 6))
+
+    def it_multiplies_two_rational_numbers(self):
+        self.a_rational_number * self.other_rational_number |should| equal_to(RationalNumber(2, 6))
+
+    def it_divides_two_rational_numbers(self):
+        self.a_rational_number / self.other_rational_number |should| equal_to(RationalNumber(3, 4))
+
+    def it_takes_the_rational_number_with_float_point(self):
+        self.a_rational_number.decimal() |should| equal_to(0.5)
+        self.other_rational_number.decimal(3) |should| equal_to(0.667)

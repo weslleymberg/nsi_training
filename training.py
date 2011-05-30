@@ -160,3 +160,41 @@ class ComplexNumber(object):
         division_real = ((self.real * _object.real + self.imaginary * _object.imaginary) / float(_object.real ** 2 + _object.imaginary ** 2))
         division_imaginary = ((self.imaginary * _object.real - self.real * _object.imaginary) / float(_object.real ** 2 + _object.imaginary ** 2))
         return ComplexNumber(division_real, division_imaginary)
+
+
+class RationalNumber(object):
+
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def __repr__(self):
+        return '%s/%s' % (self.numerator, self.denominator)
+
+    def __eq__(self, _object):
+        return self.numerator == _object.numerator and self.denominator == _object.denominator
+
+    def __add__(self, _object):
+        add_numerator = (self.numerator * _object.denominator + self.denominator * _object.numerator)
+        add_denominator = self.denominator * _object.denominator
+        return RationalNumber(add_numerator, add_denominator)
+
+    def __sub__(self, _object):
+        sub_numerator = (self.numerator * _object.denominator - self.denominator * _object.numerator)
+        sub_denominator = (self.denominator * _object.denominator)
+        return RationalNumber(sub_numerator, sub_denominator)
+
+    def __mul__(self, _object):
+        mul_numerator = (self.numerator * _object.numerator)
+        mul_denominator = (self.denominator * _object.denominator)
+        return RationalNumber(mul_numerator, mul_denominator)
+
+    def __div__(self, _object):
+        div_numerator = (self.numerator * _object.denominator)
+        div_denominator = (self.denominator * _object.numerator)
+        return RationalNumber(div_numerator, div_denominator)
+
+    def decimal(self, decimal=0):
+        if decimal == 0:
+            return float(self.numerator) / self.denominator
+        return round(float(self.numerator) / self.denominator, decimal)
