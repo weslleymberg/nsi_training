@@ -83,6 +83,9 @@ class BankAccount(object):
     def draw(self, value):
         self.average_credit -= value
 
+    def report(self):
+        return self.client_name, self.account_number, self.average_credit
+
 
 class GasStation(object):
 
@@ -93,13 +96,17 @@ class GasStation(object):
 
     def supply(self, value):
         if type(value) == int:
-            price = value * self.price_per_liter
-            self.current_state -= value
-            return price
+            if value <= self.current_state:
+                price = value * self.price_per_liter
+                self.current_state -= value
+                return price
+            return "The pump only contains %i liters" % self.current_state
         elif type(value) == float:
-            fuel = int(value / self.price_per_liter)
-            self.current_state -= fuel
-            return fuel
+            if int(value / self.price_per_liter) <= self.current_state:
+                fuel = int(value / self.price_per_liter)
+                self.current_state -= fuel
+                return fuel
+            return "The pump only contains $i liters" % self.current_state
         return "Invalid Input"
 
     def refuel(self):
@@ -120,3 +127,36 @@ class Carnivorous(object):
 
     def digest(self):
         self.stomach.remove(self.stomach[0])
+
+
+class ComplexNumber(object):
+
+    def __init__(self, real, imaginary):
+        self.real = real
+        self.imaginary = imaginary
+
+    def __repr__(self):
+        return '%s + %si' % (self.real, self.imaginary)
+
+    def __eq__(self, _object):
+        return self.real == _object.real and self.imaginary == _object.imaginary
+
+    def __add__(self, _object):
+        sum_real = self.real + _object.real
+        sum_imaginary = self.imaginary + _object.imaginary
+        return ComplexNumber(sum_real, sum_imaginary)
+
+    def __sub__(self, _object):
+        subtraction_real = self.real - _object.real
+        subtraction_imaginary = self.imaginary - _object.imaginary
+        return ComplexNumber(subtraction_real, subtraction_imaginary)
+
+    def __mul__(self, _object):
+        multiplication_real = (self.real * _object.real - self.imaginary * _object.imaginary)
+        multiplication_imaginary = (self.imaginary * _object.real + self.real * _object.imaginary)
+        return ComplexNumber(multiplication_real, multiplication_imaginary)
+
+    def __div__(self, _object):
+        division_real = ((self.real * _object.real + self.imaginary * _object.imaginary) / float(_object.real ** 2 + _object.imaginary ** 2))
+        division_imaginary = ((self.imaginary * _object.real - self.real * _object.imaginary) / float(_object.real ** 2 + _object.imaginary ** 2))
+        return ComplexNumber(division_real, division_imaginary)

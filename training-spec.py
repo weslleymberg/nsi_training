@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from should_dsl import should, should_not
-from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous
+from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous, ComplexNumber
 
 
 class TestBall(unittest.TestCase):
@@ -124,11 +124,9 @@ class TestBankAccount(unittest.TestCase):
     def it_crates_an_account(self):
         self.an_account |should| be_instance_of(BankAccount)
 
-    def it_takes_the_name_of_the_client(self):
-        self.an_account.client_name |should| be("Foo")
-
-    def it_takes_the_number_of_the_account(self):
-        self.an_account.account_number |should| equal_to("1234-5")
+    def it_takes_a_report(self):
+        self.an_account.deposit(100)
+        self.an_account.report() |should| equal_to(("Foo", "1234-5", 100))
 
     def it_makes_account_operations(self):
         self.an_account.deposit(100)
@@ -187,3 +185,38 @@ class TestCarnivorous(unittest.TestCase):
         self.a_carnivorous.digest()
         self.a_carnivorous.stomach |should_not| contain("s")
         self.a_carnivorous.stomach |should| contain(2.0)
+
+
+class TestComplexNumbers(unittest.TestCase):
+
+    def setUp(self):
+        self.a_complex_number = ComplexNumber(2, 3) #ComplexNumber(real, imaginary)
+        self.other_complex_number = ComplexNumber(4, 6)
+
+    def it_creates_a_complex_number(self):
+        self.a_complex_number |should| be_instance_of(ComplexNumber)
+        self.other_complex_number |should| be_instance_of(ComplexNumber)
+
+    def it_takes_the_real_part(self):
+        self.a_complex_number.real |should| be(2)
+        self.other_complex_number.real |should| be(4)
+
+    def it_takes_the_imaginary_part(self):
+        self.a_complex_number.imaginary |should| be(3)
+        self.other_complex_number.imaginary |should| be(6)
+
+    def it_takes_the_representation_of_the_complex_number(self):
+        repr(self.a_complex_number) |should| equal_to('2 + 3i')
+        repr(self.other_complex_number) |should| equal_to('4 + 6i')
+
+    def it_sum_two_complex_numbers(self):
+        self.a_complex_number + self.other_complex_number |should| equal_to(ComplexNumber(6, 9))
+
+    def it_subtract_two_complex_numbers(self):
+        self.a_complex_number - self.other_complex_number |should| equal_to(ComplexNumber(-2, -3))
+
+    def it_multiplies_two_complex_numbers(self):
+        self.a_complex_number * self.other_complex_number |should| equal_to(ComplexNumber(-10, 24))
+
+    def it_divides_two_complex_numbers(self):
+        self.a_complex_number / self.other_complex_number |should| equal_to(ComplexNumber(0.5, 0.0))
