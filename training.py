@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from fractions import gcd
+
 class Ball(object):
 
     def __init__(self, size, color):
@@ -136,7 +138,7 @@ class ComplexNumber(object):
         self.imaginary = imaginary
 
     def __repr__(self):
-        return '%s + %si' % (self.real, self.imaginary)
+        return '% s + %si' % (self.real, self.imaginary)
 
     def __eq__(self, _object):
         return self.real == _object.real and self.imaginary == _object.imaginary
@@ -165,11 +167,11 @@ class ComplexNumber(object):
 class RationalNumber(object):
 
     def __init__(self, numerator, denominator):
-        self.numerator = numerator
-        self.denominator = denominator
+        self.numerator = numerator / gcd(numerator, denominator)
+        self.denominator = denominator / gcd(numerator, denominator)
 
     def __repr__(self):
-        return '%s/%s' % (self.numerator, self.denominator)
+        return '% s/% s' % (self.numerator, self.denominator)
 
     def __eq__(self, _object):
         return self.numerator == _object.numerator and self.denominator == _object.denominator
@@ -194,7 +196,7 @@ class RationalNumber(object):
         div_denominator = (self.denominator * _object.numerator)
         return RationalNumber(div_numerator, div_denominator)
 
-    def decimal(self, decimal=0):
+    def decimal(self, decimal = 0):
         if decimal == 0:
             return float(self.numerator) / self.denominator
         return round(float(self.numerator) / self.denominator, decimal)

@@ -251,7 +251,7 @@ class TestRationalNumber(unittest.TestCase):
         self.a_rational_number - self. other_rational_number |should| equal_to(RationalNumber(-1, 6))
 
     def it_multiplies_two_rational_numbers(self):
-        self.a_rational_number * self.other_rational_number |should| equal_to(RationalNumber(2, 6))
+        self.a_rational_number * self.other_rational_number |should| equal_to(RationalNumber(1, 3))
 
     def it_divides_two_rational_numbers(self):
         self.a_rational_number / self.other_rational_number |should| equal_to(RationalNumber(3, 4))
