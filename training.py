@@ -3,6 +3,7 @@
 
 from fractions import gcd
 
+
 class Ball(object):
 
     def __init__(self, size, color):
@@ -115,10 +116,6 @@ class GasStation(object):
         self.current_state = self.maximum_capacity
 
 
-class GeometricShape(object):
-    pass
-
-
 class Carnivorous(object):
 
     def __init__(self):
@@ -138,7 +135,7 @@ class ComplexNumber(object):
         self.imaginary = imaginary
 
     def __repr__(self):
-        return '% s + %si' % (self.real, self.imaginary)
+        return '% s + % si' % (self.real, self.imaginary)
 
     def __eq__(self, _object):
         return self.real == _object.real and self.imaginary == _object.imaginary
@@ -200,3 +197,14 @@ class RationalNumber(object):
         if decimal == 0:
             return float(self.numerator) / self.denominator
         return round(float(self.numerator) / self.denominator, decimal)
+
+
+class Number(object):
+
+    def __init__(self, number):
+        self.number = number
+
+    def odd_or_even(self):
+        if self.number % 2 == 0:
+            return "even"
+        return "odd"

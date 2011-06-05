@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from should_dsl import should, should_not
-from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, GeometricShape, Carnivorous, ComplexNumber, RationalNumber
+from training import Ball, Square, Rectangle, Person, TV, BankAccount, GasStation, Carnivorous, ComplexNumber, RationalNumber, Number
 
 
 class TestBall(unittest.TestCase):
@@ -160,10 +160,6 @@ class TestGasStation(unittest.TestCase):
         self.a_gas_station.current_state |should| be(100)
 
 
-class TestGeometry(unittest.TestCase):
-    pass
-
-
 class TestCarnivorous(unittest.TestCase):
 
     def setUp(self):
@@ -259,3 +255,16 @@ class TestRationalNumber(unittest.TestCase):
     def it_takes_the_rational_number_with_float_point(self):
         self.a_rational_number.decimal() |should| equal_to(0.5)
         self.other_rational_number.decimal(3) |should| equal_to(0.667)
+
+
+class TestNumber(unittest.TestCase):
+
+    def setUp(self):
+        self.a_number = Number(4)
+
+    def it_creates_a_number(self):
+        self.a_number |should| be_instance_of(Number)
+
+    def it_checks_if_odd_or_even(self):
+        self.a_number.odd_or_even() |should| be("even")
+        self.a_number.odd_or_even() |should_not| be("odd")
